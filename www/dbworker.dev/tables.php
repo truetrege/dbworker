@@ -1,7 +1,9 @@
 <?php
+    //table list
     $shem   = [
-        'first_table'  => [
-            'id'    => [
+        //name table
+        'first_table'  => [//columns
+            'id'    => [//column property
                 'type'          => 'int',
                 'length'        => 10,
                 'nullable'      => false,
@@ -54,9 +56,11 @@
             ],
         ],
     ];
+    //insert data
     $values = [
-        'second_table' => [
-            [
+        //name table
+        'second_table' => [//rows
+            [//columns
                 'test' => 'second test data ',
                 'test2' => 'second test2 data ',
                 'test3' => 'second test3 data ',
