@@ -1,0 +1,38 @@
+version: '3'
+services:
+    nginx:
+        image: nginx:latest
+        ports:
+            - "80:80"
+            - "443:443"
+        volumes:
+            - ./hosts:/etc/nginx/conf.d
+            - ./www:/var/www
+            - ./logs:/var/log/nginx
+        links:
+            - php
+    php:
+        build: ./images/php
+        links:
+            - mysql
+        volumes:
+            - ./www:/var/www
+    mysql:
+        image: mysql:8
+        ports:
+            - "3306:3306"
+        volumes:
+            - ./mysql:/var/lib/mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: secret
+    composer:
+        image: composer
+        network_mode: bridge
+        volumes:
+            - ./www/dbworker.dev:/www/dbworker.dev
+        working_dir: /www/dbworker.dev
+        entrypoint:
+            - composer
+            - install
+        depends_on:
+            - php
